@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-volumes
+  labels:
+    app: backend
+spec:
+  containers:
+  - name: nginx
+    image: webserver
+    volumeMounts:
+    - mountPath: /giropops
+      name: primeiro-emptydir
+    resources:
+      requests:
+        memory: "64Mi"   # Mínimo de RAM garantido
+        cpu: "250m"      # Mínimo de 0.25 vCPU garantido
+      limits:
+        memory: "128Mi"  # Máximo de RAM permitido (se estourar, sofre OOMKilled)
+        cpu: "500m"      # Máximo de 0.5 vCPU permitido (se estourar, sofre throttling)
+  volume:
+  - name: primeiro-emptydir
+    emptyDir:
+    sizeLimit: 128Mi

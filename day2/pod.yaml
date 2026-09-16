@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+   run: girus
+  name: descomplicando
+spec:
+  containers:
+  - image: alpine
+    name: descomplicando
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: agente-monitoramento
+  labels:
+    app: agente-node
+spec:
+  selector:
+    matchLabels:
+      app: agente-node
+  template:
+    metadata:
+      labels:
+        app: agente-node
+    spec:
+      containers:
+      - name: nginx-agente
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        # Checa se o container responde HTTP na porta 80 na rota /
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5  # Espera 5s após subir para testar pela 1ª vez
+          periodSeconds: 10       # Testa a cada 10s
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 2
+          periodSeconds: 5

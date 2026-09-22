@@ -5,6 +5,7 @@ metadata:
   labels:
     app: agente-node
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: agente-node
